@@ -1,43 +1,45 @@
 import React, { useState } from "react";
 import { Button, Form, Input, InputNumber, Modal } from "antd";
 import { useDispatch } from "react-redux";
-import { addCar } from "../../JS/Actions/carActions";
+import {  editCar } from "../../JS/Actions/carActions";
+import { useParams } from "react-router-dom";
 const { TextArea } = Input;
 
-const AddCar = () => {
-      const [isModalOpen, setIsModalOpen] = useState(false);
-      const [newCar, setNewCar] = useState({})
+const EditCar = () => {
+  const {id} = useParams()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newData, setNewData] = useState({});
 
-      const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-            const handleChange = (eOrValue, name) => {
-              if (typeof eOrValue === "object" && eOrValue?.target) {
-                // For regular Input and TextArea
-                const { name, value } = eOrValue.target;
-                setNewCar((prev) => ({ ...prev, [name]: value }));
-              } else {
-                // For InputNumber (value is passed directly)
-                setNewCar((prev) => ({ ...prev, [name]: eOrValue }));
-              }
-            };
+  const handleChange = (eOrValue, name) => {
+    if (typeof eOrValue === "object" && eOrValue?.target) {
+      // For regular Input and TextArea
+      const { name, value } = eOrValue.target;
+      setNewData((prev) => ({ ...prev, [name]: value }));
+    } else {
+      // For InputNumber (value is passed directly)
+      setNewData((prev) => ({ ...prev, [name]: eOrValue }));
+    }
+  };
 
-      const showModal = () => {
-        setIsModalOpen(true);
-      };
-      const handleOk = () => {
-        dispatch(addCar(newCar));
-        setIsModalOpen(false);
-      };
-      const handleCancel = () => {
-        setIsModalOpen(false);
-      };
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    dispatch(editCar(id, newData));
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <Button color="default" variant="solid" onClick={showModal}>
-        Add new Car
+        Edit Car
       </Button>
       <Modal
-        title="Adding new Car"
+        title="Editing Car"
         closable={{ "aria-label": "Custom Close Button" }}
         open={isModalOpen}
         onOk={handleOk}
@@ -86,4 +88,4 @@ const AddCar = () => {
   );
 };
 
-export default AddCar;
+export default EditCar;

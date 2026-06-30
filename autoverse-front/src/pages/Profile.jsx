@@ -1,11 +1,7 @@
 import React from 'react'
 
 const Profile = () => {
-  return (
-    <div>
-      xgdg
-    </div>
-  )
+  return <div className="min-h-screen">Profile</div>;
 }
 
 export default Profile

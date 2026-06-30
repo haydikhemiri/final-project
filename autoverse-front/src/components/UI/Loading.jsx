@@ -1,11 +1,12 @@
+import { Spin } from 'antd';
 import React from 'react'
 
 const Loading = () => {
   return (
-    <div>
-      Loading
+    <div className='min-h-screen flex justify-center items-center'>
+      <Spin />
     </div>
-  )
+  );
 }
 
 export default Loading
